@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LÁ THƯ GỬI EM 💌</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      scrollbar-width: none !important; /* Firefox */
+      -ms-overflow-style: none !important; /* IE/Edge */
+    }
+
+    *::-webkit-scrollbar {
+      display: none !important; /* Chrome, Safari */
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(135deg, #ffd6e8, #ffe5ec, #e0c3fc);
+      overflow: hidden;
+      color: #d63384;
+      transition: background 0.8s ease;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 10px;
+      animation: fadeInDown 1.5s;
+    }
+
+    p {
+      font-size: 1.5em;
+      animation: fadeInUp 2s;
+      margin: 10px 0;
+    }
+
+    .cute-image {
+      width: 250px;
+      height: auto;
+      margin: 20px auto;
+      display: block;
+      animation: fadeInUp 2.5s;
+    }
+
+    .btn {
+      padding: 16px 35px;
+      border: none;
+      border-radius: 20px;
+      font-size: 1.3em;
+      cursor: pointer;
+      background-color: #ffb3c1;
+      margin: 15px;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .btn:hover {
+      background-color: #ffa3b3;
+      transform: scale(1.08);
+    }
+
+    #page {
+      opacity: 1;
+      transition: opacity 0.8s ease;
+      max-height: 100vh;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    /* Lá thư */
+    .letter {
+      position: relative;
+      background: repeating-linear-gradient(
+        white,
+        white 34px,
+        #ffd6e8 35px
+      );
+      width: 80%;
+      max-width: 800px;
+      height: 70vh;
+      margin: 20px auto;
+      padding: 60px;
+      color: #5a2a5d;
+      font-size: 1.3em;
+      line-height: 1.7em;
+      overflow-y: scroll;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255,182,193,0.6);
+      border: 2px solid #ffc4d6;
+      animation: fadeInUp 1s;
+      text-align: left;
+    }
+
+    /* Ẩn thanh cuộn lá thư trên mọi trình duyệt */
+    .letter::-webkit-scrollbar { display: none; }
+    .letter { scrollbar-width: none; -ms-overflow-style: none; }
+
+    /* Hiệu ứng gõ chữ */
+    .typing {
+      border-right: 3px solid #d63384;
+      white-space: pre-line;
+      animation: blink 0.7s step-end infinite alternate;
+    }
+
+    @keyframes blink {
+      from { border-color: transparent; }
+      to { border-color: #d63384; }
+    }
+
+    /* Tim bay */
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      transform: rotate(45deg);
+      animation: float 5s infinite ease-in;
+      opacity: 0.8;
+      z-index: 0;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+
+    @keyframes float {
+      0% { bottom: -20px; opacity: 0; transform: translateX(0) rotate(45deg); }
+      50% { opacity: 1; }
+      100% { bottom: 110%; transform: translateX(50px) rotate(405deg); opacity: 0; }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="loveMusic" loop>
+    <source src="m1.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="page">
+    <h1>CHÚC MỪNG NGÀY 20/10💖</h1>
+    <p>Trang web này dành riêng cho người tuyệt vời nhất cuộc đời anh💌</p>
+    <img src="h1.jpg" class="cute-image" alt="cute">
+    <button class="btn" id="nextBtn">Nhấn dô đây đi💞</button>
+  </div>
+
+  <script>
+    const music = document.getElementById("loveMusic");
+    const page = document.getElementById("page");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      heart.style.backgroundColor = ['#ffb3c1', '#ffc0cb', '#ff85a2', '#ff99cc'][Math.floor(Math.random() * 4)];
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+
+    function typeLetter(element, text, speed, callback) {
+      let i = 0;
+      const interval = setInterval(() => {
+        element.textContent += text[i];
+        i++;
+        if (i === text.length) {
+          clearInterval(interval);
+          element.classList.remove('typing');
+          if (callback) callback();
+        }
+      }, speed);
+    }
+
+    nextBtn.addEventListener("click", () => {
+      music.play();
+      page.style.opacity = 0;
+
+      setTimeout(() => {
+        page.innerHTML = `
+          <h1>Gửi đến người anh thương 💘</h1>
+          <div class="letter"><p id="letterText" class="typing"></p></div>
+          <button class="btn" id="backBtn">⬅ Quay lại</button>
+        `;
+        document.body.style.background = "linear-gradient(135deg, #e0c3fc, #ffdde1)";
+        page.style.opacity = 1;
+
+        const message = 
+`Em  bé yêu ơi 💌
+
+ 20/10 là dịp đặc biệt để anh nói rằng,
+anh thật may mắn khi có em bé trong đời💖
+Dù đôi khi có những điều nhỏ bé khiến mình chưa hiểu nhau,
+nhưng anh luôn tin rằng tình yêu này sẽ vượt qua tất cả.
+
+Cảm ơn em bé vì đã ở bên anh,  đã cho anh biết thế nào là hạnh phúc thật sự. 💕
+
+Chúc em bé luôn xinh đẹp, mạnh mẽ, và luôn được anh yêu thương thật nhiều —
+không chỉ hôm nay mà là mãi mãi, chúc em bé của anh có một ngày lễ 20/10 thật dui dẻ nhoaaaaaa. 🌸
+
+Anh thương em bé của nhiều lắm💞
+MOAZZZZZZZZZZZZ💞
+MOAZZZZZZZZZZZZ💞
+MOAZZZZZZZZZZZZ💞
+                        Trụi gà của em💕`;
+                                       
+
+        const letterText = document.getElementById("letterText");
+        typeLetter(letterText, message, 45);
+
+        document.getElementById("backBtn").addEventListener("click", () => {
+          page.style.opacity = 0;
+          setTimeout(() => {
+            page.innerHTML = `
+              <h1>CHÚC MỪNG NGÀY 20/10💖</h1>
+              <p>Trang web này dành riêng cho người tuyệt vời nhất cuộc đời anh💌</p>
+              <img src="h1.jpg" class="cute-image" alt="cute">
+              <button class="btn" id="nextBtn">Nhấn dô đây đi💞</button>
+            `;
+            document.body.style.background = "linear-gradient(135deg, #ffd6e8, #ffe5ec, #e0c3fc)";
+            page.style.opacity = 1;
+            document.getElementById("nextBtn").addEventListener("click", () => nextBtn.click());
+          }, 700);
+        });
+      }, 700);
+    });
+  </script>
+</body>
+</html>
