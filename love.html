@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lá Thư Gửi Em 💌</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e0c3fc, #ffdde1);
+      font-family: 'Comic Sans MS', cursive;
+      color: #d63384;
+      text-align: center;
+      overflow-y: auto; /* ✅ Cho phép cuộn dọc khi nội dung quá dài */
+      overflow-x: hidden;
+      scroll-behavior: smooth; /* ✅ Cuộn mượt */
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 3em;
+      animation: fadeInDown 1.5s ease;
+    }
+
+    /* Khung lá thư */
+    .letter {
+      position: relative;
+      background: #fff0f6;
+      width: 60%;
+      max-width: 700px;
+      margin: 40px auto;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255, 182, 193, 0.6);
+      padding: 40px;
+      animation: fadeInUp 2s ease;
+      border: 2px solid #ffc4d6;
+    }
+
+    /* Nắp thư */
+    .letter::before {
+      content: "";
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-bottom: 25px solid #ffe0eb;
+      filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.1));
+    }
+
+    .message {
+      font-size: 1.4em;
+      line-height: 1.8em;
+      text-align: left;
+      width: 85%;
+      margin: auto;
+      animation: fadeInText 2.5s ease;
+      white-space: pre-line;
+    }
+
+    /* Hiệu ứng trái tim bay */
+    .heart {
+      position: fixed;
+      width: 18px;
+      height: 18px;
+      background-color: pink;
+      transform: rotate(45deg);
+      animation: float 6s infinite ease-in;
+      opacity: 0.8;
+      z-index: 0;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background-color: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -9px; left: 0; }
+    .heart::after { left: -9px; top: 0; }
+
+    /* Thanh cuộn dễ thương */
+    body::-webkit-scrollbar {
+      width: 10px;
+    }
+    body::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 153, 204, 0.6);
+      border-radius: 6px;
+    }
+    body::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(255, 128, 170, 0.8);
+    }
+
+    /* Animation keyframes */
+    @keyframes float {
+      0% { bottom: -20px; opacity: 0; transform: translateX(0) rotate(45deg); }
+      30% { opacity: 1; }
+      100% { bottom: 110%; transform: translateX(60px) rotate(405deg); opacity: 0; }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInText {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Lá Thư Gửi Em 💞</h1>
+
+  <div class="letter">
+    <div class="message">
+      <p>💌 Em yêu dấu,</p>
+      <p>Những dòng này anh viết với tất cả tình cảm chân thành nhất trong tim.  
+      Cảm ơn em vì đã đến — mang nụ cười, niềm vui và cả hơi ấm vào cuộc sống anh.</p>
+
+      <p>🌸 Dù mỗi ngày trôi qua đều có thể không hoàn hảo,  
+      nhưng chỉ cần có em, mọi thứ trở nên nhẹ nhàng và đáng yêu hơn rất nhiều.</p>
+
+      <p>💖 Anh chúc em luôn hạnh phúc, được yêu thương và rạng rỡ như ánh bình minh...  
+      Anh sẽ luôn ở đây — bên cạnh, dõi theo và yêu em bằng tất cả trái tim này 💗</p>
+
+      <p>Và nếu một ngày em thấy mệt,  
+      hãy nhớ rằng có một người luôn sẵn sàng lắng nghe và nắm lấy tay em.  
+      Cuộc sống có thể đầy thử thách,  
+      nhưng tình yêu này — là nơi để em luôn có thể dựa vào 💞</p>
+
+      <p style="text-align:right;">— Anh của em 💕</p>
+    </div>
+  </div>
+
+  <!-- Nhạc nền -->
+  <audio id="loveMusic" loop>
+    <source src="love.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const music = document.getElementById('loveMusic');
+
+    // Nếu nhạc đã bật ở trang trước thì tiếp tục phát
+    if (localStorage.getItem("isMusicPlaying") === "true") {
+      music.play().catch(() => {});
+    }
+
+    // Hiệu ứng trái tim bay
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      heart.style.backgroundColor = ['#ffb3c1', '#ff99cc', '#ffc0cb'][Math.floor(Math.random() * 3)];
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 400);
+  </script>
+</body>
+</html>

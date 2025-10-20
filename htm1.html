@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Tình Yêu Dễ Thương</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', cursive;
+            background: linear-gradient(135deg, #ffd6e8, #ffe5ec, #e0c3fc);
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+            color: #d63384;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-top: 30px;
+            animation: fadeInDown 2s ease-out;
+        }
+
+        p {
+            font-size: 1.5em;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .cute-image {
+            width: 200px;
+            margin: 20px auto;
+            animation: fadeInUp 3s ease;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            background-color: #ffb3c1;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+            transition: background 0.3s ease, transform 0.2s;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            background-color: #ffa3b3;
+            transform: scale(1.05);
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: pink;
+            transform: rotate(45deg);
+            animation: float 5s infinite ease-in;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: pink;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                bottom: -20px;
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                bottom: 110%;
+                transform: translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Chào em yêu 💖</h1>
+    <p>Trang web này dành riêng cho người tuyệt vời nhất 💌</p>
+
+    <img src="https://i.imgur.com/7yUVEBr.png" alt="Cute Love" class="cute-image">
+
+    <button class="btn" id="musicBtn">🎶 Bật nhạc</button>
+    <button class="btn" onclick="nextPage()">💞 Tiếp tục</button>
+
+    <audio id="loveMusic" loop autoplay muted>
+        <source src="m1.mp3" type="duan1">
+    </audio>
+
+    <script>
+        // Tạo trái tim bay
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+
+        // Tự phát nhạc (bỏ mute sau khi load)
+        window.addEventListener('click', () => {
+            const music = document.getElementById('loveMusic');
+            music.muted = false;
+            music.play();
+        }, { once: true });
+
+        document.getElementById('musicBtn').addEventListener('click', () => {
+            const music = document.getElementById('loveMusic');
+            music.muted = false;
+            music.play();
+        });
+
+        function nextPage() {
+            window.location.href = "love2.html";
+        }
+    </script>
+</body>
+</html>
